@@ -1,3 +1,5 @@
 = Example Project for End To End Testing
 
-Simple REST API in Spring Boot
+Simple REST API in Spring Boot for the FOSDEM Lecture
+
+https://fosdem.org/2021/schedule/event/endtoendtests/
