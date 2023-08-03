@@ -30,7 +30,7 @@ import java.time.Duration;
 
 class Application {
 
-  private int port;
+  private final int port;
 
   public Application(int port) {
     this.port = port;
