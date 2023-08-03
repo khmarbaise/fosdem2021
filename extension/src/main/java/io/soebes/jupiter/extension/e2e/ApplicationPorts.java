@@ -18,30 +18,77 @@
  */
 package io.soebes.jupiter.extension.e2e;
 
-import org.springframework.util.SocketUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.SortedSet;
+import java.io.IOException;
+import java.io.Serial;
+import java.net.ServerSocket;
 
 /**
  * @author Karl Heinz Marbaise
  */
 public class ApplicationPorts {
 
-  private final int applicationPort;
+  private static final Logger LOG = LoggerFactory.getLogger(ApplicationPorts.class);
 
+  private final int applicationPort;
   private final int actuatorPort;
 
-  ApplicationPorts() {
-    SortedSet<Integer> availableTcpPorts = SocketUtils.findAvailableTcpPorts(2);
-    this.applicationPort = availableTcpPorts.first();
-    this.actuatorPort = availableTcpPorts.last();
+  public ApplicationPorts() {
+      this.applicationPort = reserveApplicationPort();
+      this.actuatorPort = reserveActuatorPort();
   }
 
   public int getApplicationPort() {
-    return applicationPort;
+    return this.applicationPort;
+  }
+  public int getActuatorPort() {
+    return this.actuatorPort;
+  }
+  private int reserveApplicationPort() {
+    try (var serverSocket = new ServerSocket(0)) {
+      var localPort = serverSocket.getLocalPort();
+      LOG.info("ApplicationPort: {}", localPort);
+      return localPort;
+    } catch (IOException e) {
+      throw new ApplicationPortException(e);
+    }
   }
 
-  public int getActuatorPort() {
-    return actuatorPort;
+  private int reserveActuatorPort() {
+    try (var serverSocket = new ServerSocket(0)) {
+      var localPort = serverSocket.getLocalPort();
+      LOG.info("ActuatorPort: {}", localPort);
+      return localPort;
+    } catch (IOException e) {
+      throw new ApplicationPortException(e);
+    }
+  }
+
+  static class ApplicationPortException extends RuntimeException {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    public ApplicationPortException() {
+    }
+
+    public ApplicationPortException(String message) {
+      super(message);
+    }
+
+    public ApplicationPortException(String message, Throwable cause) {
+      super(message, cause);
+    }
+
+    public ApplicationPortException(Throwable cause) {
+      super(cause);
+    }
+
+    public ApplicationPortException(String message, Throwable cause, boolean enableSuppression,
+                                    boolean writableStackTrace) {
+      super(message, cause, enableSuppression, writableStackTrace);
+    }
   }
 }

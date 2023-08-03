@@ -25,12 +25,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.ConnectException;
-import java.net.SocketTimeoutException;
 import java.net.URI;
 import java.time.Duration;
-
-import static org.assertj.core.api.AssertionsForClassTypes.catchThrowable;
 
 class Application {
 

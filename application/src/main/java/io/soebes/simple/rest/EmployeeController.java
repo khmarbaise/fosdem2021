@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 class EmployeeController {
 
-  private EmployeeRepository employeeRepository;
+  private final EmployeeRepository employeeRepository;
 
   public EmployeeController(EmployeeRepository employeeRepository) {
     this.employeeRepository = employeeRepository;
