@@ -116,7 +116,7 @@ class E2EExtension implements BeforeAllCallback,
     //Identify that the application has been started
     await()
         .atMost(APPLICATION_STARTUP_TIMEOUT)
-        .until(() -> application.isReady() == true);
+        .until(application::isReady);
   }
 
   @Override
