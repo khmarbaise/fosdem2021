@@ -25,6 +25,8 @@ import io.soebes.simple.jpa.Employee;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -33,6 +35,8 @@ import java.net.URI;
 
 @E2ETest
 class ExampleE2E {
+
+  private static final Logger LOG = LoggerFactory.getLogger(ExampleE2E.class);
 
   @BeforeEach
   void beforeEach(ApplicationPorts ports) {
@@ -49,6 +53,7 @@ class ExampleE2E {
 
   @AfterEach
   void afterEach(ApplicationPorts ports) {
+    LOG.info("Hello World.");
     System.out.println("--> ExampleE2E.afterEach");
     int applicationPort = ports.getApplicationPort();
     RestTemplate restTemplate = new RestTemplateBuilder().build();
@@ -73,4 +78,21 @@ class ExampleE2E {
     System.out.println("db.getPassword() = " + db.getPassword());
     System.out.println("db.getUsername() = " + db.getUsername());
   }
+
+  @Test
+  void third_test(DatabaseContainer db) {
+    System.out.println("ExampleE2E.third_test");
+    System.out.println("db.dataSourceUrl() = " + db.dataSourceUrl());
+    System.out.println("db.getPassword() = " + db.getPassword());
+    System.out.println("db.getUsername() = " + db.getUsername());
+  }
+
+  @Test
+  void forth_test(DatabaseContainer db) {
+    System.out.println("ExampleE2E.forth_test");
+    System.out.println("db.dataSourceUrl() = " + db.dataSourceUrl());
+    System.out.println("db.getPassword() = " + db.getPassword());
+    System.out.println("db.getUsername() = " + db.getUsername());
+  }
+
 }

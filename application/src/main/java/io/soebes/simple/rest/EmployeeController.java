@@ -20,6 +20,8 @@ package io.soebes.simple.rest;
 
 import io.soebes.simple.jpa.Employee;
 import io.soebes.simple.repositories.EmployeeRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,8 @@ import java.util.List;
 @RestController
 class EmployeeController {
 
+  private static final Logger LOG = LoggerFactory.getLogger(EmployeeController.class);
+
   private final EmployeeRepository employeeRepository;
 
   public EmployeeController(EmployeeRepository employeeRepository) {
@@ -39,11 +43,15 @@ class EmployeeController {
 
   @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
   ResponseEntity<Void> create() {
+    LOG.info(" Called create");
+
     Employee employee = new Employee();
     employee.setDescription("Description");
     employee.setPublished(Boolean.FALSE);
     employee.setTitle("the Title.");
     this.employeeRepository.save(employee);
+    LOG.info("Created entity: {}", employee);
+
     return ResponseEntity.noContent().build();
   }
 

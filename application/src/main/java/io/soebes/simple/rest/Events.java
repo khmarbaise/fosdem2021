@@ -32,12 +32,12 @@ class Events {
 
   @EventListener(classes = {ApplicationStartedEvent.class})
   void applicationStartEvent(@NonNull ApplicationStartedEvent event) {
-    LOG.info("ApplicationStartEvent received.", event.getSource().getClass().getName());
+    LOG.info("ApplicationStartEvent received {}", event.getSource().getClass().getName());
   }
 
   @EventListener(classes = {ApplicationReadyEvent.class})
   void applicationReadyEvent(@NonNull ApplicationReadyEvent event) {
-    LOG.info("ApplicationReadyEvent received.", event.getSource().getClass().getName());
+    LOG.info("ApplicationReadyEvent received {}", event.getSource().getClass().getName());
   }
 
 }

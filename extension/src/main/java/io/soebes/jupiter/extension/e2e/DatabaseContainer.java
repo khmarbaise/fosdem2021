@@ -26,7 +26,7 @@ import java.util.Map;
 public class DatabaseContainer {
   private static final int DATABASE_PORT = 5432;
 
-  private static final String POSTGRESQL_IMAGE = "postgres:9.6.20-alpine";
+  private static final String POSTGRESQL_IMAGE = "postgres:12-alpine";
 
   private final String database;
   private final String username;
